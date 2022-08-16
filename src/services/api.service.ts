@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosRequestHeaders } from "axios";
 import { useCookies } from "@vueuse/integrations/useCookies";
 import { Supplier, SuppliersResponse } from "../models/suppliers.model";
 import { QuotesResponse } from "../models/quotes.model";
@@ -13,10 +13,6 @@ const toast = useToast();
 
 const instance: AxiosInstance = axios.create({
   baseURL: "https://february-21.herokuapp.com/api/v1",
-  // attach the token to the header of every request
-  headers: {
-    Authorization: "Token " + cookies.get("token"),
-  },
 });
 // create store instance
 
@@ -26,8 +22,9 @@ instance.interceptors.request.use(
     // activate loader
     const appStore = useAppStore();
     appStore.setLoader(true);
-
-    // Do something before request is sent
+    const headers = config.headers as AxiosRequestHeaders;
+    // attach token to header before request is sent
+    config.headers["Authorization"] = `Token ${cookies.get("token")}`;
     return config;
   },
   function (error) {

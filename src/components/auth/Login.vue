@@ -35,7 +35,6 @@ async function onSubmit(values: any): Promise<void> {
     cookies.set("token", response.token);
     // push to suppliers page
     router.push({ path: "/suppliers", replace: true });
-  } else {
   }
 }
 

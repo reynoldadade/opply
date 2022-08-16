@@ -2,6 +2,7 @@
 import { useAppStore } from "../../stores/app";
 import { useCookies } from "@vueuse/integrations/useCookies";
 import { useRouter } from "vue-router";
+import Overlay from "./Overlay.vue";
 // get store instance
 const appStore = useAppStore();
 
@@ -42,7 +43,8 @@ function logout() {
         <button class="mx-2 hover:text-gray-200" @click="logout">Logout</button>
       </div>
     </div>
-    <div class="px-10 py-5 flex-grow">
+    <div class="px-10 py-5 flex-grow relative">
+      <Overlay v-if="appStore.getLoader" />
       <div
         class="w-full h-full p-2 shadow-xl card bg-gray-100 flex flex-col justify-between"
       >

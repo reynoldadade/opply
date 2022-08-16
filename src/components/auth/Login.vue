@@ -86,8 +86,8 @@ function switchToRegister() {
       </div>
     </Form>
     <!-- subtext for incorrect credentials -->
-    <div class="text-xs text-gray-400">
-      <span> Unable to log in with provided credentials </span>
+    <div class="text-xs text-gray-400" v-if="appStore.getIsError">
+      <span> {{ appStore.error }} </span>
     </div>
 
     <div>

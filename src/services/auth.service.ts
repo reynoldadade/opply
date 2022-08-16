@@ -67,8 +67,11 @@ export async function POST_users(
     const response = await instance.post("api/v1/users/", user);
     const { username, user_token } = response.data;
     const userObject = { username, token: user_token };
+    // set IsError to false
+    appStore.setIsError(false);
     return userObject;
   } catch ({ response }) {
+    appStore.setIsError(true);
     appStore.setError(response?.data?.username[0]);
   }
 }
@@ -79,8 +82,12 @@ export async function POST_login(user: LoginForm): Promise<UserLogin | void> {
     const response = await instance.post("api-token-auth/", user);
     const { username, token } = response.data;
     const userObject = { username, token };
+    // set isError to false when login is successful
+    appStore.setIsError(true);
     return userObject;
   } catch ({ response }) {
+    // set error to true
+    appStore.setIsError(true);
     appStore.setError(response?.data?.non_field_errors[0]);
   }
 }

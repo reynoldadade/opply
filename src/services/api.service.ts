@@ -3,9 +3,13 @@ import { useCookies } from "@vueuse/integrations/useCookies";
 import { Supplier, SuppliersResponse } from "../models/suppliers.model";
 import { QuotesResponse } from "../models/quotes.model";
 import { useAppStore } from "../stores/app";
+import { useToast } from "vue-toastification";
 
 // get cookie instance
 const cookies = useCookies();
+
+// get toast instance
+const toast = useToast();
 
 const instance: AxiosInstance = axios.create({
   baseURL: "https://february-21.herokuapp.com/api/v1",
@@ -57,8 +61,6 @@ instance.interceptors.response.use(
       cookies.remove("token");
       appStore.$reset();
       window.location.href = "/";
-
-      // useCleanUp();
     }
     return Promise.reject(error);
   }
@@ -74,7 +76,8 @@ export async function GET_suppliers(
     const response = await instance.get(url);
     return response.data;
   } catch ({ response }) {
-    console.log(response.data);
+    // show with toast if there is an error
+    toast.error(response.data.detail);
   }
 }
 
@@ -83,7 +86,7 @@ export async function GET_supplier(id: number): Promise<Supplier | void> {
     const response = await instance.get(`/suppliers/${id}/`);
     return response.data;
   } catch ({ response }) {
-    console.log(response.data);
+    toast.error(response.data.detail);
   }
 }
 
@@ -94,6 +97,6 @@ export async function GET_quotes(
     const response = await instance.get(url);
     return response.data;
   } catch ({ response }) {
-    console.log(response.data);
+    toast.error(response.data.detail);
   }
 }

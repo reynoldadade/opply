@@ -35,7 +35,6 @@ async function onSubmit(values: any): Promise<void> {
     cookies.set("token", response.token);
     // push to suppliers page
     router.push({ path: "/suppliers", replace: true });
-  } else {
   }
 }
 
@@ -86,8 +85,8 @@ function switchToRegister() {
       </div>
     </Form>
     <!-- subtext for incorrect credentials -->
-    <div class="text-xs text-gray-400">
-      <span> Unable to log in with provided credentials </span>
+    <div class="text-xs text-gray-400" v-if="appStore.getIsError">
+      <span> {{ appStore.error }} </span>
     </div>
 
     <div>

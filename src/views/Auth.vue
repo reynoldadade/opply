@@ -1,5 +1,8 @@
 <script lang="ts" setup>
 import { Ref, ref, computed, defineAsyncComponent } from "vue";
+import { useAppStore } from "../stores/app";
+// create store instance
+const appStore = useAppStore();
 
 /*** variables ***/
 
@@ -17,6 +20,9 @@ const componentInView = computed(() => {
 
 //change component in view
 function changeComponentInView(component: string) {
+  // set error to false and set the value of componentToLoad to the component
+  //this ensures components dont have errors triggered when switched
+  appStore.setIsError(false);
   componentToLoad.value = component;
 }
 </script>
@@ -25,10 +31,12 @@ function changeComponentInView(component: string) {
   <div class="flex w-full h-full justify-center items-center">
     <div class="w-full md:w-2/3 lg:w-1/2 card shadow-xl">
       <div class="card-body">
-        <component
-          :is="componentInView"
-          @switchComponent="changeComponentInView"
-        ></component>
+        <transition name="slide" mode="out-in">
+          <component
+            :is="componentInView"
+            @switchComponent="changeComponentInView"
+          ></component>
+        </transition>
       </div>
     </div>
   </div>

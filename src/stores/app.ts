@@ -48,6 +48,20 @@ export const useAppStore = defineStore("app", () => {
   const setError = (value: string) => {
     error.value = value;
   };
+  // error indicators
+
+  // indicate if there is an error
+  const isError: Ref<boolean> = ref(false);
+
+  // set isError
+  const setIsError = (value: boolean) => {
+    isError.value = value;
+  };
+
+  // get IsError value from store
+  const getIsError = computed(() => {
+    return isError.value;
+  });
 
   return {
     setSelectedSupplier,
@@ -60,5 +74,8 @@ export const useAppStore = defineStore("app", () => {
     error,
     getError,
     setError,
+    isError,
+    setIsError,
+    getIsError,
   };
 });

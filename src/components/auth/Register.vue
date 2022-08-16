@@ -4,11 +4,15 @@ import { POST_users } from "../../services/auth.service";
 import * as yup from "yup";
 import { useRouter } from "vue-router";
 import { useCookies } from "@vueuse/integrations/useCookies";
+import { useAppStore } from "../../stores/app";
+import Spinner from "../UI/Spinner.vue";
 
 // define router hook
 const router = useRouter();
 // define cookies hook
 const cookies = useCookies();
+// define appStore hook
+const appStore = useAppStore();
 
 // schema to define validation rules for the form
 const registerSchema = yup.object().shape({
@@ -32,9 +36,6 @@ async function onSubmit(values: any): Promise<void> {
     cookies.set("token", response.token);
     // push to suppliers page
     router.push({ path: "/suppliers", replace: true });
-    // if a response exists, then the user is logged in
-    // push to suppliers page
-    router.push("/suppliers");
   }
 }
 
@@ -60,6 +61,7 @@ function switchToRegister() {
           class="py-1 px-2 rounded-sm border w-full"
           id="username"
           data-testid="registerUsername"
+          value=""
         />
         <ErrorMessage name="username" class="text-xs text-gray-400" />
       </div>
@@ -73,6 +75,7 @@ function switchToRegister() {
           class="py-1 px-2 rounded-sm border w-full"
           id="password"
           data-testid="registerPassword"
+          value=""
         />
         <ErrorMessage name="password" class="text-xs text-gray-400" />
       </div>
@@ -86,6 +89,7 @@ function switchToRegister() {
           class="py-1 px-2 rounded-sm border w-full"
           id="firstName"
           data-testid="registerFirstName"
+          value=""
         />
         <ErrorMessage name="first_name" class="text-xs text-gray-400" />
       </div>
@@ -99,6 +103,7 @@ function switchToRegister() {
           class="py-1 px-2 rounded-sm border w-full"
           id="lastName"
           data-testid="registerLastName"
+          value=""
         />
         <ErrorMessage name="last_name" class="text-xs text-gray-400" />
       </div>
@@ -112,13 +117,19 @@ function switchToRegister() {
           class="py-1 px-2 rounded-sm border w-full"
           id="email"
           data-testid="registerEmail"
+          value=""
         />
         <ErrorMessage name="email" class="text-xs text-gray-400" />
       </div>
       <div class="py-2">
-        <button type="submit" class="btn">Sign Up</button>
+        <button type="submit" class="btn">
+          <span>Sign Up</span> <Spinner v-if="appStore.getLoader" />
+        </button>
       </div>
     </Form>
+    <div class="text-xs text-gray-400" v-if="appStore.getIsError">
+      <span>{{ appStore.error }} </span>
+    </div>
     <div>
       Already have an account?
       <span class="btn btn-link" @click="switchToRegister">Sign In</span>

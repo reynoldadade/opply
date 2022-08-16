@@ -22,7 +22,12 @@ instance.interceptors.request.use(
     // activate loader
     const appStore = useAppStore();
     appStore.setLoader(true);
-    const headers = config.headers as AxiosRequestHeaders;
+    // check if config has headers
+    if (!config?.headers) {
+      throw new Error(
+        `Expected 'config' and 'config.headers' not to be undefined`
+      );
+    }
     // attach token to header before request is sent
     config.headers["Authorization"] = `Token ${cookies.get("token")}`;
     return config;

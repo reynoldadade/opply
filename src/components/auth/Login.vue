@@ -45,7 +45,7 @@ function switchToRegister() {
 </script>
 
 <template>
-  <div class="w-full p-4">
+  <div class="w-full p-4" data-testid="loginComponent">
     <div class="capitalize text-lg">
       <span>Sign In</span>
     </div>
@@ -79,7 +79,7 @@ function switchToRegister() {
         <ErrorMessage name="password" class="text-xs text-gray-400" />
       </div>
       <div class="py-2">
-        <button type="submit" class="btn">
+        <button type="submit" class="btn" data-testid="signInButton">
           <span>Sign In</span> <Spinner v-if="appStore.getLoader" />
         </button>
       </div>
@@ -91,7 +91,12 @@ function switchToRegister() {
 
     <div>
       Dont have an account?
-      <span class="btn btn-link" @click="switchToRegister">Sign Up</span>
+      <span
+        class="btn btn-link"
+        @click="switchToRegister"
+        data-testid="switchToSignUpButton"
+        >Sign Up</span
+      >
     </div>
   </div>
 </template>

@@ -7,7 +7,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="w-full">
+  <div class="w-full overflow-x-auto">
     <table class="table w-full">
       <thead>
         <tr>
@@ -17,7 +17,7 @@ const props = defineProps<{
         </tr>
       </thead>
       <tbody>
-        <slot></slot>
+        <slot class="overflow-y-auto"></slot>
       </tbody>
     </table>
   </div>

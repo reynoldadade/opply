@@ -61,19 +61,21 @@ onMounted(() => {
 
 <template>
   <Layout>
-    <div class="font-bold p-2">Suppliers</div>
-    <Table :headers="supplierTableHeaders">
-      <tr v-for="supplier in suppliers" :key="supplier.id">
-        <td>{{ supplier.id }}</td>
-        <td>{{ supplier.name }}</td>
-        <td>{{ supplier.description }}</td>
-        <td>
-          <button class="btn btn-sm" @click="viewSupplierDetails(supplier)">
-            View Details
-          </button>
-        </td>
-      </tr>
-    </Table>
+    <div>
+      <div class="font-bold p-2">Suppliers</div>
+      <Table :headers="supplierTableHeaders">
+        <tr v-for="supplier in suppliers" :key="supplier.id">
+          <td>{{ supplier.id }}</td>
+          <td>{{ supplier.name }}</td>
+          <td>{{ supplier.description }}</td>
+          <td>
+            <button class="btn btn-sm" @click="viewSupplierDetails(supplier)">
+              View Details
+            </button>
+          </td>
+        </tr>
+      </Table>
+    </div>
     <Pagination
       :previous="previousPage"
       :next="nextPage"

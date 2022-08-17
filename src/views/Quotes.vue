@@ -41,16 +41,18 @@ onMounted(() => {
 
 <template>
   <Layout>
-    <div class="font-bold">Quotes</div>
-    <Table :headers="quotesTableHeaders">
-      <tr v-for="quote in quotes" :key="quote.id">
-        <td>{{ quote.id }}</td>
-        <td>{{ quote.title }}</td>
-        <td>{{ quote.amount }}</td>
-        <td>{{ useDate(quote.created) }}</td>
-        <td>{{ quote.supplier_id }}</td>
-      </tr>
-    </Table>
+    <div>
+      <div class="font-bold">Quotes</div>
+      <Table :headers="quotesTableHeaders">
+        <tr v-for="quote in quotes" :key="quote.id">
+          <td>{{ quote.id }}</td>
+          <td>{{ quote.title }}</td>
+          <td>{{ quote.amount }}</td>
+          <td>{{ useDate(quote.created) }}</td>
+          <td>{{ quote.supplier_id }}</td>
+        </tr>
+      </Table>
+    </div>
     <Pagination
       :previous="previousPage"
       :next="nextPage"

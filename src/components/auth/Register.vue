@@ -16,11 +16,11 @@ const appStore = useAppStore();
 
 // schema to define validation rules for the form
 const registerSchema = yup.object().shape({
-  username: yup.string().required().min(1).max(150),
-  password: yup.string().required().min(1).max(128),
-  first_name: yup.string().min(0).max(150),
-  last_name: yup.string().min(0).max(150),
-  email: yup.string().email().min(0).max(256),
+  username: yup.string().required().min(1).max(150).trim(),
+  password: yup.string().required().min(1).max(128).trim(),
+  first_name: yup.string().min(0).max(150).trim(),
+  last_name: yup.string().min(0).max(150).trim(),
+  email: yup.string().email().min(0).max(256).trim(),
 });
 // emitter
 const emit = defineEmits<{

@@ -3,7 +3,6 @@ import { UserLogin } from "../models/login";
 import { useAppStore } from "../stores/app";
 
 // create store instance
-const appStore = useAppStore();
 
 // interface for user object
 interface RegisterUser {
@@ -28,11 +27,13 @@ const instance = axios.create({
 instance.interceptors.request.use(
   function (config) {
     // activate loader
+    const appStore = useAppStore();
     appStore.setLoader(true);
     // Do something before request is sent
     return config;
   },
   function (error) {
+    const appStore = useAppStore();
     appStore.setLoader(false);
     // Do something with request error
     return Promise.reject(error);
@@ -45,6 +46,7 @@ instance.interceptors.response.use(
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     // set loaders to false when results are in
+    const appStore = useAppStore();
     appStore.setLoader(false);
     return response;
   },
@@ -52,6 +54,7 @@ instance.interceptors.response.use(
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     // set loaders to false when results are in even on error
+    const appStore = useAppStore();
     appStore.setLoader(false);
     return Promise.reject(error);
   }

@@ -1,5 +1,9 @@
 import axios, { AxiosError } from "axios";
-import { UserLogin } from "../models/login";
+import {
+  LoginResponse,
+  RegistrationResponse,
+  UserLogin,
+} from "../models/login";
 import { useAppStore } from "../stores/app";
 
 // interface for user object
@@ -66,9 +70,12 @@ export async function POST_users(
 ): Promise<UserLogin | void> {
   const appStore = useAppStore();
   try {
-    const response = await instance.post("api/v1/users/", user);
-    const { username, user_token } = response.data;
-    const userObject = { username, token: user_token };
+    const response = await instance.post<RegistrationResponse>(
+      "api/v1/users/",
+      user
+    );
+    const { username, auth_token } = response.data;
+    const userObject = { username, token: auth_token };
     // set IsError to false
     appStore.setIsError(false);
     return userObject;
@@ -79,12 +86,17 @@ export async function POST_users(
 }
 
 // post request to login a user
-export async function POST_login(user: LoginForm): Promise<UserLogin | void> {
+export async function POST_login(
+  user: LoginForm
+): Promise<LoginResponse | void> {
   const appStore = useAppStore();
   try {
-    const response = await instance.post("api-token-auth/", user);
-    const { username, token } = response.data;
-    const userObject = { username, token };
+    const response = await instance.post<LoginResponse>(
+      "api-token-auth/",
+      user
+    );
+    const { token } = response.data;
+    const userObject = { token };
     // set isError to false when login is successful
     appStore.setIsError(true);
     return userObject;

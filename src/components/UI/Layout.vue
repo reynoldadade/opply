@@ -87,7 +87,7 @@ function logout() {
     <div class="px-10 py-5 flex-grow relative">
       <Overlay v-if="appStore.getLoader" />
       <div
-        class="w-full h-full p-2 shadow-xl card bg-gray-100 flex flex-col justify-between"
+        class="w-full h-full p-2 shadow-xl bg-gray-100 flex flex-col justify-between"
       >
         <slot></slot>
       </div>

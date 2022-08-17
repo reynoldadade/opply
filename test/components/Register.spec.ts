@@ -3,7 +3,6 @@ import Register from "../../src/components/auth/Register.vue";
 import { expect, test, describe, beforeEach } from "vitest";
 import { createPinia, setActivePinia } from "pinia";
 import { mount, flushPromises } from "@vue/test-utils";
-import waitForExpect from "wait-for-expect";
 
 describe("Register", () => {
   beforeEach(() => {

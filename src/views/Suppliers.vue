@@ -61,7 +61,7 @@ onMounted(() => {
 
 <template>
   <Layout>
-    <div class="font-bold">Suppliers</div>
+    <div class="font-bold p-2">Suppliers</div>
     <Table :headers="supplierTableHeaders">
       <tr v-for="supplier in suppliers" :key="supplier.id">
         <td>{{ supplier.id }}</td>

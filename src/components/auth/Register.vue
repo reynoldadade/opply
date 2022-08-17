@@ -46,7 +46,7 @@ function switchToRegister() {
 </script>
 
 <template>
-  <div class="w-full p-4">
+  <div class="w-full p-4" data-testid="registerComponent">
     <div class="capitalize text-lg">
       <span>Register</span>
     </div>
@@ -63,7 +63,11 @@ function switchToRegister() {
           data-testid="registerUsername"
           value=""
         />
-        <ErrorMessage name="username" class="text-xs text-gray-400" />
+        <ErrorMessage
+          name="username"
+          class="text-xs text-gray-400"
+          data-testid="registerUsernameError"
+        />
       </div>
       <div class="form-control">
         <label for="password" class="label"
@@ -77,7 +81,11 @@ function switchToRegister() {
           data-testid="registerPassword"
           value=""
         />
-        <ErrorMessage name="password" class="text-xs text-gray-400" />
+        <ErrorMessage
+          name="password"
+          class="text-xs text-gray-400"
+          data-testid="registerPasswordError"
+        />
       </div>
       <div class="form-control">
         <label for="firstName" class="label"
@@ -91,7 +99,11 @@ function switchToRegister() {
           data-testid="registerFirstName"
           value=""
         />
-        <ErrorMessage name="first_name" class="text-xs text-gray-400" />
+        <ErrorMessage
+          name="first_name"
+          class="text-xs text-gray-400"
+          data-testid="registerFirstNameError"
+        />
       </div>
       <div class="form-control">
         <label for="lastName" class="label"
@@ -105,7 +117,11 @@ function switchToRegister() {
           data-testid="registerLastName"
           value=""
         />
-        <ErrorMessage name="last_name" class="text-xs text-gray-400" />
+        <ErrorMessage
+          name="last_name"
+          class="text-xs text-gray-400"
+          data-testid="registerLastNameError"
+        />
       </div>
       <div class="form-control">
         <label for="email" class="label"
@@ -119,20 +135,30 @@ function switchToRegister() {
           data-testid="registerEmail"
           value=""
         />
-        <ErrorMessage name="email" class="text-xs text-gray-400" />
+        <ErrorMessage
+          name="email"
+          class="text-xs text-gray-400"
+          data-testid="registerEmailError"
+        />
       </div>
       <div class="py-2">
-        <button type="submit" class="btn">
+        <button type="submit" class="btn" data-testid="signUpButton">
           <span>Sign Up</span> <Spinner v-if="appStore.getLoader" />
         </button>
       </div>
     </Form>
     <div class="text-xs text-gray-400" v-if="appStore.getIsError">
-      <span>{{ appStore.error }} </span>
+      <span data-testid="registerErrorMessage">{{ appStore.error }} </span>
     </div>
     <div>
       Already have an account?
-      <span class="btn btn-link" @click="switchToRegister">Sign In</span>
+      <span
+        class="btn btn-link"
+        role="button"
+        @click="switchToRegister"
+        data-testid="switchToSignInButton"
+        >Sign In</span
+      >
     </div>
   </div>
 </template>

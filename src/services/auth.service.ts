@@ -2,8 +2,6 @@ import axios, { AxiosError } from "axios";
 import { UserLogin } from "../models/login";
 import { useAppStore } from "../stores/app";
 
-// create store instance
-
 // interface for user object
 interface RegisterUser {
   username: string;
@@ -66,6 +64,7 @@ instance.interceptors.response.use(
 export async function POST_users(
   user: RegisterUser
 ): Promise<UserLogin | void> {
+  const appStore = useAppStore();
   try {
     const response = await instance.post("api/v1/users/", user);
     const { username, user_token } = response.data;
@@ -81,6 +80,7 @@ export async function POST_users(
 
 // post request to login a user
 export async function POST_login(user: LoginForm): Promise<UserLogin | void> {
+  const appStore = useAppStore();
   try {
     const response = await instance.post("api-token-auth/", user);
     const { username, token } = response.data;

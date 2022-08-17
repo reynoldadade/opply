@@ -33,6 +33,7 @@ async function onSubmit(values: any): Promise<void> {
   // send values to server
   const response = await POST_users(values);
   if (response) {
+    // save token to cookies
     cookies.set("token", response.token);
     // push to suppliers page
     router.push({ path: "/suppliers", replace: true });

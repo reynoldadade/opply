@@ -67,8 +67,8 @@ export async function POST_users(
   const appStore = useAppStore();
   try {
     const response = await instance.post("api/v1/users/", user);
-    const { username, user_token } = response.data;
-    const userObject = { username, token: user_token };
+    const { username, auth_token } = response.data;
+    const userObject = { username, token: auth_token };
     // set IsError to false
     appStore.setIsError(false);
     return userObject;
